@@ -22,14 +22,24 @@ func main() {
 	if err != nil {
 		log.Fatal("Error opening input file:", err)
 	}
+	scanner := bufio.NewScanner(inputFile)
+	numberOfLines := 0
+	for scanner.Scan(){
+		numberOfLines++
+	}
+	inputFile.Close()
 
+	urls := make([]string, numberOfLines)
+	channel = make(chan string, numberOfLines)
+
+	inputFile, err = os.Open("urllist.txt")
+	if err != nil {
+		log.Fatal("Error opening input file:", err)
+	}
 	defer inputFile.Close()
 
-	scanner := bufio.NewScanner(inputFile)
-	urls := [100]string{}
-
 	i := 0
-	for scanner.Scan() {
+	for scanner.Scan(){
 		urls[i] = scanner.Text()
 		i++
 	}
