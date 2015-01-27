@@ -38,6 +38,7 @@ func main() {
 	}
 	defer inputFile.Close()
 
+	scanner = bufio.NewScanner(inputFile)
 	i := 0
 	for scanner.Scan(){
 		urls[i] = scanner.Text()
